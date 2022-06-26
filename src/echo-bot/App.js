@@ -6,7 +6,15 @@ const helpMessage = `
 Say something to me:
 /start - start the bot
 /help - command reference
+/echo <msg> - return back the message
 `;
+const logChatID = -701922241;
+
+bot.use((ctx,next) => {
+    bot.telegram.sendMessage(logChatID,
+        "@" + ctx.from.username + " said: " + ctx.update.message.text);
+    next().then(r => {console.log("bot got used.")});
+});
 
 bot.start((ctx) => {
     ctx.reply("Hi I'm echo bot🖐");
