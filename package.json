@@ -1,4 +1,5 @@
 {
+  "type": "module",
   "name": "telegraf-learning-course",
   "version": "1.0.0",
   "description": "",
@@ -15,6 +16,8 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
-    "telegraf": "^4.8.5"
+    "nodemon": "^2.0.18",
+    "telegraf": "^4.8.5",
+    "ts-node": "^10.8.1"
   }
 }

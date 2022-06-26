@@ -1,39 +1,30 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const telegraf_1 = require("telegraf");
+import {Telegraf} from "telegraf";
 const echoBotToken = "5436938329:AAGq9N9ZbZHeznjLbogWwjh5er4VwwNmSnY";
-const echoBot = new telegraf_1.Telegraf(echoBotToken);
-echoBot.start((context) => {
-    context.reply("Hi🖐" + context.from.first_name);
+const bot = new Telegraf(echoBotToken);
+
+const helpMessage = `
+Say something to me:
+/start - start the bot
+/help - command reference
+`;
+
+bot.start((ctx) => {
+    ctx.reply("Hi I'm echo bot🖐");
+    ctx.reply(helpMessage);
 });
-echoBot.help((context) => {
-    context.reply("help");
+
+bot.help((ctx) => {
+    ctx.reply(helpMessage);
+})
+
+bot.command("echo",(ctx) => {
+    let inputArray = ctx.message.text.split(" ");
+    if (inputArray.length === 1) {
+        ctx.reply("Type something in after /echo to get it back");
+    } else {
+        inputArray.shift();
+        ctx.reply(inputArray.join(" "));
+    }
 });
-echoBot.settings((context) => {
-    context.reply("settings");
-});
-echoBot.command("test", (context) => {
-    context.reply("hello");
-});
-echoBot.hears("ابراهیمی", (context) => {
-    context.reply("مادر خراب");
-    context.reply("پدر کونی");
-});
-echoBot.hears("علیرضا", (context) => {
-    context.reply("بیا اینو درت بذا");
-});
-echoBot.hears("بیکاری؟", (context) => {
-    context.reply("خیار بدم بکاری؟");
-});
-echoBot.on("text", (context) => {
-    console.log(context.from.first_name);
-    context.reply(context.from.first_name + "کص گفت ");
-    // if (context.from.first_name == "Muhammad") {
-    //     context.reply("کیرت عالیه محمد آقا!");
-    // }
-});
-echoBot.on("sticker", (context) => {
-    context.reply("استیکر نفرست کونی!");
-});
-echoBot.launch();
-console.log('echo bot running....');
+
+bot.launch().then(r => {console.log('echo bot running....')});

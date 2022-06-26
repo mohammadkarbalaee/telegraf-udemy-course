@@ -1,2 +1,1 @@
-npx tsc
-node ./src/echo-bot/App.js
+nodemon ./src/echo-bot/App.js
